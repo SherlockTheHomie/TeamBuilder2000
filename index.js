@@ -2,6 +2,8 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
 const generateHtml = require('./utils/generatehtml');
+const generateManager = require('./utils/generateManager');
+const generateTeamMember = require('./utils/generateTeamMember')
 
 const mainMenu = [
     {
@@ -22,19 +24,7 @@ const mainMenu = [
     },   
 ]
 
-
-
-
-
-
-
-
 init();
-
-
-
-
-
 
 function init() {
 
@@ -53,29 +43,54 @@ inquirer
 });
 }
 
-const tmMemberQuestions = [
+const tmLeadQuestions = [
+    
     {
-        type: '',
-        message: '',
-        name: '',
+        type: 'input',
+        message: 'What is the name of your Team Manager?',
+        name: 'managername',
     },
     {
-        type: ''.
-        message: '',
-        name: '',
+        type: 'input',
+        message: 'What is their employee ID number?',
+        name: 'managerid',
+    },
+    {
+        type: 'input',
+        message: 'What is their email address?',
+        name: 'manageremail',
+    },
+    {
+        type: 'input',
+        message: 'What is your Team Managers office number?',
+        name: 'manageroffice',
     },
 ]
 
 
 function createTeam() {
     inquirer
-        .prompt(tmMemberQuestions)
+        .prompt(tmLeadQuestions)
     
-        .then((answers) => {
-            const filename = `README.md`;
+        .then((managerProfile) => {
+            const filename = `generateManager.js`;
     
-            fs.writeFile(filename, generateMarkdown(answers), (err) =>
+            fs.writeFile(filename, generateManager(managerProfile), (err) =>
                 err ? console.error(err) : console.log('success!')
             );
+            addTeamMember();
     });
     }
+
+    function addTeamMember() {
+        inquirer
+            .prompt(teammemberprofile)
+        
+            .then((teamprofile) => {
+                const filename = `generateTeamMember.js`;
+        
+                fs.writeFile(filename, generateManager(teamprofile), (err) =>
+                    err ? console.error(err) : console.log('success!')
+                );
+        });
+        }
