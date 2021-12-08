@@ -2,8 +2,10 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
 const generateHtml = require('./utils/generatehtml');
-const generateManager = require('./utils/generateManager');
+const generateManager = require('./utils/generateEmployee');
 const generateTeamMember = require('./utils/generateTeamMember')
+
+let teamArray = [];
 
 const mainMenu = [
     {
@@ -73,7 +75,7 @@ function createTeam() {
         .prompt(tmLeadQuestions)
     
         .then((managerProfile) => {
-            const filename = `generateManager.js`;
+            const filename = `TeamInformation.html`;
     
             fs.writeFile(filename, generateManager(managerProfile), (err) =>
                 err ? console.error(err) : console.log('success!')
@@ -82,15 +84,20 @@ function createTeam() {
     });
     }
 
-    function addTeamMember() {
-        inquirer
-            .prompt(teammemberprofile)
-        
-            .then((teamprofile) => {
-                const filename = `generateTeamMember.js`;
-        
-                fs.writeFile(filename, generateManager(teamprofile), (err) =>
-                    err ? console.error(err) : console.log('success!')
-                );
-        });
-        }
+function addTeamMember() {
+   console.log("we out here");
+
+
+}
+
+
+// inquirer
+// .prompt(teammemberprofile)
+
+// .then((teamprofile) => {
+//     const filename = `generateTeamMember.js`;
+
+//     fs.writeFile(filename, generateManager(teamprofile), (err) =>
+//         err ? console.error(err) : console.log('success!')
+//     );
+// });
