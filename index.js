@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
-const generatehtml = require('./utils/generatehtml');
-const generateManager = require('./utils/generateEmployee');
+const generateHTML = require('./utils/generatehtml');
+
 
 let teamArray = [];
 
@@ -74,11 +74,11 @@ function createTeam() {
     
         .then((managerProfile) => {
             generateHTML(managerProfile);
-            const filename = `TeamInformation.html`;
+            // const filename = `TeamInformation.html`;
     
-            fs.appendFile(filename, generateManager(managerProfile), (err) =>
-                err ? console.error(err) : console.log('success!')
-            );
+            // fs.appendFile(filename, generateManager(managerProfile), (err) =>
+            //     err ? console.error(err) : console.log('success!')
+            // );
             continueQuery();
     });
     }
@@ -87,7 +87,7 @@ const continueQ = [
     {
         type: 'list',
         name: 'more',
-        messsage: 'Add another team Member or create your roster?',
+        message: 'Add another team Member or create your roster?',
         choices: [
             {
                 name:"Add Team Member"
@@ -106,7 +106,7 @@ function continueQuery() {
             if (continueAnswer.more === "Add Team Member") {
                 TeamMemberSelect();
             } else {
-                createDoc()
+                createDoc();
             }
 
 }
@@ -133,9 +133,9 @@ function TeamMemberSelect() {
     .prompt(selectTeamMember)
 
     .then(selection)
-    if (selection.name === "Engineer") {
+    if (selection.userchoice === "Engineer") {
         createEngineer();
-    } else if (selection.name === "Intern") {
+    } else if (selection.userchoice === "Intern") {
         createIntern();
     } else {
         process.exit;
