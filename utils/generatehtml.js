@@ -1,7 +1,6 @@
-const generateEmployee = require("../utils/generateEmployee");
 const index = require("../index");
 
-function generateManager(managerProfile) {
+function generateHTML(managerProfile) {
     const{
       managername,
       managerid,
@@ -24,14 +23,14 @@ function generateManager(managerProfile) {
 
     <div class="card p-5">
         <div class="card-body p-5">
-            <div class="card-header card-title>${managername}</div>
+            <div class="card-header card-title>Team Manager: ${managername}</div>
             <h2>Employee ID: ${managerid}</h2>
             <h2>Email: <a href="mailto:${manageremail}" id="contact"></a></h2>
             <h2>Office Number: ${manageroffice}<h2>
         </div>
     </div>
 
-    ${teamMember}
+${teamCache}
 
 
 
@@ -41,12 +40,10 @@ function generateManager(managerProfile) {
 
 
 </html>
-  `
-};
-  
-  
-  
+`
+}  
 
-function createDoc(params) {
-    module.exports = generateHtml;
-}
+module.exports = generateHTML;
+
+
+
