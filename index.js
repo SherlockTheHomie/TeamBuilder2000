@@ -1,10 +1,14 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
+
+const generateManager = require('./utils/generatehtml');
+const generateEngineer = require('./utils/generatehtml');
+const generateIntern = require('./utils/generatehtml');
 const generateHTML = require('./utils/generatehtml');
 
 
-let teamArray = [];
+
 
 const mainMenu = [
     {
@@ -13,38 +17,38 @@ const mainMenu = [
         message: 'Hello, what would you like to do?',
         choices: [
             {
-            name: "Create a Team",
+                name: "Create a Team",
             },
-            { 
-            name: "Talk with you",
+            {
+                name: "Talk with you",
             },
-            { 
-            name: "Exit the program",
+            {
+                name: "Exit the program",
             },
         ],
-    },   
+    },
 ]
 
 init();
 
 function init() {
 
-inquirer
-    .prompt(mainMenu)
+    inquirer
+        .prompt(mainMenu)
 
-    .then((userChoice) => {
-        if (userChoice.choice === 'Create a Team') {
-            createTeam();           
-        } else if (userChoice === 'Talk with you') {
-        return ("I'm sorry HAL, I'm not in the mood to speak to humans");
-        } else {
-            process.exit;
-        }
-        
-});
+        .then((userChoice) => {
+            if (userChoice.choice === 'Create a Team') {
+                createTeam();
+            } else if (userChoice === 'Talk with you') {
+                return ("I'm sorry HAL, I'm not in the mood to speak to humans");
+            } else {
+                process.exit();
+            }
+
+        });
 }
 
-const tmLeadQuestions = [ 
+const tmLeadQuestions = [
     {
         type: 'input',
         message: 'What is the name of your Team Manager',
@@ -67,21 +71,14 @@ const tmLeadQuestions = [
     },
 ]
 
-
 function createTeam() {
     inquirer
         .prompt(tmLeadQuestions)
-    
         .then((managerProfile) => {
-            generateHTML(managerProfile);
-            // const filename = `TeamInformation.html`;
-    
-            // fs.appendFile(filename, generateManager(managerProfile), (err) =>
-            //     err ? console.error(err) : console.log('success!')
-            // );
+            generateManager(managerProfile);
             continueQuery();
-    });
-    }
+        });
+}
 
 const continueQ = [
     {
@@ -90,25 +87,26 @@ const continueQ = [
         message: 'Add another team Member or create your roster?',
         choices: [
             {
-                name:"Add Team Member"
+                name: "Add Team Member",
             },
             {
-                name:"Generate Roster"
+                name: "Generate Roster",
             },
-        ]
-    }
+        ],
+    },
 ]
 
 function continueQuery() {
     inquirer
         .prompt(continueQ)
-        .then(continueAnswer)
+        .then((continueAnswer) => {
             if (continueAnswer.more === "Add Team Member") {
                 TeamMemberSelect();
-            } else {
+            } else if (continueAnswer.more === "Generate Roster") {
                 createDoc();
             }
-
+        }
+        )
 }
 
 
@@ -119,31 +117,32 @@ const selectTeamMember = [
         message: 'What is your team members title?',
         choices: [
             {
-            name: "Engineer",
+                name: "Engineer",
             },
-            { 
-            name: "Intern",
+            {
+                name: "Intern",
             },
         ],
-    },          
+    },
 ]
 
 function TeamMemberSelect() {
-   inquirer
-    .prompt(selectTeamMember)
+    inquirer
+        .prompt(selectTeamMember)
 
-    .then(selection)
-    if (selection.userchoice === "Engineer") {
-        createEngineer();
-    } else if (selection.userchoice === "Intern") {
-        createIntern();
-    } else {
-        process.exit;
-    }
+        .then((selection) => {
+            if (selection.userchoice === "Engineer") {
+                createEngineer();
+            } else if (selection.userchoice === "Intern") {
+                createIntern();
+            } else {
+                process.exit();
+            }
+        }
+        )
 }
 
 const engineerQ = [
-    
     {
         type: 'input',
         message: 'Please enter the name of your Engineer',
@@ -169,12 +168,15 @@ const engineerQ = [
 function createEngineer() {
     inquirer
         .prompt(engineerQ)
-            .then(engineerProfile)
+        .then((engineerProfile) => {
             generateEngineer(engineerProfile);
+            continueQuery();
+        }
+        )
 }
 
 const internQ = [
-    
+
     {
         type: 'input',
         message: 'Please enter the name of your Intern',
@@ -200,9 +202,33 @@ const internQ = [
 function createIntern() {
     inquirer
         .prompt(internQ)
-        .then(internProfile)
+        .then((internProfile) => {
             generateIntern(internProfile);
+            console.log(teamArray);
+            continueQuery();
+        }
+        )
 }
+
+const pageName = [
+    {
+        type: 'input',
+        message: 'Please enter an awesome title for your team roster page',
+        name: 'pagetitle',
+    },
+]
+
+
+function createDoc() {
+    inquirer
+        .prompt(pageName)
+
+        .then((title) => {
+            generateHTML(title);
+
+        });
+}
+
 
 
 // inquirer

@@ -1,40 +1,33 @@
-const index = require("../index");
 const fs = require('fs');
 
-teamArray = [];
+const teamArray = [];
 
-function generateHTML(managerProfile) {
-    const{
+// for (let i = 0; i < teamArray.length; i++) {
+//     const teamCard = teamArray[i];
+    
+// }
+
+function generateManager(managerProfile) {
+    const {
       managername,
       managerid,
       manageremail,
       manageroffice,
     } = managerProfile;
-    teamArray += filename = 'TeamInformation.html'
-    let teamOrigin = (
-     `<!DOCTYPE html>
-    <html>
-    <head>
-        <title>Team Information</title>
-        <link rel= "stylesheet" href="./Unit01Miniproject/assets/stylesheet.css">
-        <script type="text/javascript" src="javascript.js"></script>
-    </head>
-    <body>
-        <header>
-    
-        </header>
-    
-        <div class="card p-5">
-            <div class="card-body p-5">
-                <div class="card-header card-title">Team Manager: ${managername}</div>
-                <h2>Employee ID: ${managerid}</h2>
-                <h2>Email: <a href="mailto:${manageremail}" id="contact"></a></h2>
-                <h2>Office Number: ${manageroffice}<h2>
-            </div>
-        </div>
-    
-    `)
-    teamArray.push(teamOrigin)
+ 
+let teamManager = `
+<div class="card p-5">
+    <div class="card-body p-5">
+        <div class="card-header card-title">Team Manager: ${managername}</div>
+        <h2>Employee ID: ${managerid}</h2>
+        <h2>Email: <a href="mailto:${manageremail}" id="contact"></a></h2>
+        <h2>Office Number: ${manageroffice}<h2>
+    </div>
+</div>`;
+
+teamArray.push(teamManager);
+
+return teamArray;
 }
 
 function generateEngineer(engineerProfile) {
@@ -44,9 +37,9 @@ function generateEngineer(engineerProfile) {
         engineeremail,
         github,
     } = engineerProfile;
-    const filename = 'TeamInformation.html'
 
-    `
+let engineer =   
+`
 <div class="card p-5">
     <div class="card-body p-5">
         <div class="card-header card-title">Engineer: ${engineername}</div>
@@ -54,11 +47,12 @@ function generateEngineer(engineerProfile) {
         <h2>Email: <a href="mailto:${engineeremail}" id="contact"></a></h2>
         <h2>Github Profile: <a href="https://github.com/${github}><h2>
     </div>
-</div>
+</div>`;
 
-`
+teamArray.push(engineer);
+
+return teamArray;
 }
-
 
 function generateIntern(internProfile) {
     const{
@@ -67,9 +61,8 @@ function generateIntern(internProfile) {
         internemail,
         school,
     } = internProfile;
-    const filename = 'TeamInformation.html'
-
-    `
+let intern =
+`
 <div class="card p-5">
     <div class="card-body p-5">
         <div class="card-header card-title>Intern: ${internname}</div>
@@ -78,13 +71,49 @@ function generateIntern(internProfile) {
         <h2>School: ${school}<h2>
     </div>
 </div>
-`   
+`;
+teamArray.push(intern);
 
+return teamArray;
 }
 
 
-module.exports = generateHTML;
+function generateHTML(title, teamArray) {
+    const{
+        pagetitle,
+    } = title;
+ let teamWeb =
+ `
+ <!DOCTYPE html>
+ <html>
+ <head>
+     <title>${pagetitle}</title>
+     <link rel= "stylesheet" href="./Unit01Miniproject/assets/stylesheet.css">
+     <script type="text/javascript" src="javascript.js"></script>
+ </head>
+ <body>
+    <header>
+
+
+    </header>
+${teamArray}
+
+
+</body>
+</html>
+`;
+console.log(teamWeb);
+// const filename = `TeamRoster.html`;
+        
+//                 fs.writeFile(filename, teamWeb, (err) =>
+//                     err ? console.error(err) : console.log('success!')
+//                 );
+}
+
+
+module.exports = generateManager;
 module.exports = generateIntern;
 module.exports = generateEngineer;
+module.exports = generateHTML;
 
 
