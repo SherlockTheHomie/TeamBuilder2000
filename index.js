@@ -2,13 +2,12 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
 
-const generateManager = require('./utils/generatehtml');
-const generateEngineer = require('./utils/generatehtml');
-const generateIntern = require('./utils/generatehtml');
-const generateHTML = require('./utils/generatehtml');
+const frank = require('./utils/generatehtml')
 
-
-
+const generateManager = frank.generateManager;
+const generateEngineer = frank.generateEngineer;
+const generateIntern = frank.generateIntern;
+const generateHTML = frank.generateHTML;
 
 const mainMenu = [
     {
@@ -52,22 +51,22 @@ const tmLeadQuestions = [
     {
         type: 'input',
         message: 'What is the name of your Team Manager',
-        name: 'managername',
+        name: 'managerName',
     },
     {
         type: 'input',
         message: 'What is their employee ID number?',
-        name: 'managerid',
+        name: 'managerId',
     },
     {
         type: 'input',
         message: 'What is their email address?',
-        name: 'manageremail',
+        name: 'managerEmail',
     },
     {
         type: 'input',
         message: 'What is your Team Managers office number?',
-        name: 'manageroffice',
+        name: 'managerOffice',
     },
 ]
 
