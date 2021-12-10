@@ -203,7 +203,6 @@ function createIntern() {
         .prompt(internQ)
         .then((internProfile) => {
             generateIntern(internProfile);
-            console.log(teamArray);
             continueQuery();
         }
         )
